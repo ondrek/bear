@@ -1,5 +1,5 @@
 const chalk = require("chalk")
-const title = chalk.gray("Bearicorn; ")
+const title = chalk.dim("Bearicorn; ")
 
 const dim = (message, prefix) => {
     return prefix
@@ -13,10 +13,16 @@ const bold = (message, prefix) => {
         : chalk.bold(message)
 }
 
+const red = (message, prefix) => {
+  return prefix
+    ? chalk.red(title + message)
+    : chalk.red(message)
+}
+
 const green = (message, prefix) => {
     return prefix
         ? chalk.green(title + message)
         : chalk.green(message)
 }
 
-module.exports = { dim, bold, green }
+module.exports = { dim, bold, green, red }

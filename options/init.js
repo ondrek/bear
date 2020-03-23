@@ -1,9 +1,13 @@
-const fs = require("fs")
 const tar = require("tar")
-const { log, uuid } = require("../utils")
-const DIR = "./.bearicorn"
-const fetch = require("node-fetch")
+const { log, uuid, fs, home, fetch } = require("../utils")
+const readline = require("readline")
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+const ask = (q) => new Promise((r) => rl.question(log.green(q), (a) => r(a)))
 
 const createStructure = () => {
     const file = `${process.cwd()}/.${uuid()}.tar`
@@ -29,25 +33,66 @@ const uploadToS3 = (tarName) => {
         })
 }
 
-const unlinkFile = (tarName) => {
-    fs.unlink(tarName, (err) => {
-        if (err) throw err;
-        log.info(`${tarName} Removed from the project folder`)
-        process.exit()
-    });
+const letsLogin = async () => {
+  const username = await ask("Please enter your username: ")
+  const password = await ask("Enter login phrase from email we've sent you: ")
+  rl.close()
+
+  const res = await fetch("http://localhost:3001/api/auth/login", { username, password })
+
+  if (res.userDoesNotExistYet) {
+    console.info(log.bold("Sorry, but the password was wrong\n"))
+    return process.exit()
+  }
+
+  console.info(log.bold("Password was OK\n"))
+  await fs.createFile(home.getTokenFilePath(), res.cli.token)
+  process.exit()
 }
 
-const checkIfWasAlreadyInit = () => {
-    if (!fs.existsSync(DIR)) {
-        log.info("The init didn't exist yet, so it's created now")
-        fs.mkdirSync(DIR)
-    } else {
-        log.info("Folder already existed")
-    }
+const isAlreadyAuthenticated = async () => {
+  const tokenFilePath = home.getTokenFilePath()
+  const doesExist = await fs.doesFolderExists(tokenFilePath)
+
+  if (!doesExist) {
+    console.info(log.red("You are not authenticate yet, let's do it together now"))
+    await letsLogin()
+    return
+  }
+
+  const token = await fs.readFile(tokenFilePath)
+  const res = await fetch("http://localhost:3001/api/auth/jsonwebtoken", { token })
+
+  if (res.token) {
+    console.info(log.green("You are already logged in. Everything OK."))
+    process.exit()
+  } else {
+    console.info(log.red("Your token has expired and you have been logged out, please log in again.."))
+    await fs.unlinkFolder(tokenFilePath)
+    console.info(log.red("Old token was removed, please login with new credentials"))
+    await letsLogin()
+  }
+
+
+
 }
 
+const checkIfWasAlreadyInit = async () => {
+  const bearFolderPath = home.getHomeFolder()
+  const doesFolderExist = await fs.doesFolderExists(bearFolderPath)
+
+  if (!doesFolderExist) {
+    await fs.createFolder(bearFolderPath)
+    log.dim("Home Bearicorn folder wasn't created therefore we created it")
+  }
+}
+
+const constructInit = async () => {
+  await isAlreadyAuthenticated()
+}
 
 module.exports = {
-    checkIfWasAlreadyInit,
-    createStructure
+  checkIfWasAlreadyInit,
+  constructInit,
+  isAlreadyAuthenticated
 }
