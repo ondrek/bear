@@ -1,0 +1,29 @@
+{
+  "name": "bear",
+  "version": "2.0.0",
+  "description": "Cli for Bearicorn deployments",
+  "main": "bear.js",
+  "preferGlobal": true,
+  "license": "Apache License 2.0",
+  "homepage": "https://github.com/ondrek/bear-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ondrek/bear-cli.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "start": "node bear.js"
+  },
+  "bin": {
+    "bear": "./bear.js"
+  },
+  "dependencies": {
+    "chalk": "3.0.0",
+    "jsonwebtoken": "8.5.1",
+    "node-fetch": "2.6.0",
+    "tar": "6.0.1",
+    "uuid": "7.0.2"
+  }
+}
