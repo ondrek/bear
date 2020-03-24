@@ -12,6 +12,7 @@ const constructLogout = async () => {
     console.info(log.green("User is already logged our and no data do exist"))
   }
 
+  console.info("")
   process.exit()
 }
 

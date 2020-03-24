@@ -66,5 +66,8 @@ module.exports = {
   createFolder,
   createFile,
   unlinkFile,
-  unlinkFolder
+  unlinkFolder,
+  createWriteStream: fs.createWriteStream,
+  createReadStream: fs.createReadStream,
+  statSync: fs.statSync
 }

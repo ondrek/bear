@@ -4,6 +4,4 @@ const _uuid = () => {
     return uuidv4().split("-").join("")
 }
 
-module.exports = {
-    uuid: _uuid
-}
+module.exports = _uuid
