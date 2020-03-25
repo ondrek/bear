@@ -32,13 +32,6 @@ async function uploadToS3(tarName, id) {
     headers: { token: await token.getWholeToken() }
   })
 
-  //  2.9mb   9.0s    9.6s    8.1s    9.1s   —— without acc transfer
-  //  2.9mb   9.0s    9.0s   9.0s    9.0s
-
-
-  // 42.2mb   42s     41.4s   55.2s   67.4s  -- with acc transfer
-
-
   let data = await response.json()
 
   if (data.missingJwt) {

@@ -60,6 +60,12 @@ const unlinkFolder = (path) => {
   })
 }
 
+const createLocalConfigFile = async (name) => {
+  const template = await readFile(process.cwd() + "/templates/default")
+  const filledIn = template.replace("{{name}}", name)
+  await createFile(process.cwd() + "/.bearicorn", filledIn)
+}
+
 module.exports = {
   readFile,
   doesFolderExists,
@@ -67,6 +73,7 @@ module.exports = {
   createFile,
   unlinkFile,
   unlinkFolder,
+  createLocalConfigFile,
   createWriteStream: fs.createWriteStream,
   createReadStream: fs.createReadStream,
   statSync: fs.statSync

@@ -1,14 +1,19 @@
-const _home = require("os")
+const os = require("os")
 
 function getTokenFilePath() {
-    return _home.homedir() + "/.bearicorn/TOKEN"
+    return os.homedir() + "/.bearicorn/TOKEN"
 }
 
 function getHomeFolder() {
-  return _home.homedir() + "/.bearicorn"
+  return os.homedir() + "/.bearicorn"
+}
+
+function getLocalConfigFile() {
+  return process.cwd() + "/.bearicorn"
 }
 
 module.exports = {
   getTokenFilePath,
-  getHomeFolder
+  getHomeFolder,
+  getLocalConfigFile
 }

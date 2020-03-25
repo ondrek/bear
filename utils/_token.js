@@ -9,11 +9,6 @@ const routineTokenExpirationCheck = async () => {
   // console.info(hasTokenExpired())
 }
 
-module.exports = {
-  routineTokenExpirationCheck,
-  getWholeToken
-}
-
 // function hasTokenExpired() {
 //   return (getJwt().exp > +new Date)
 // }
@@ -32,4 +27,9 @@ async function getTokenUsername() {
 
   const tokenFile = await readFile(getTokenFilePath())
   return jwt.decode(tokenFile).data.username
+}
+
+module.exports = {
+  routineTokenExpirationCheck,
+  getWholeToken
 }

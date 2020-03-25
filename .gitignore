@@ -3,9 +3,7 @@
 # dependencies
 node_modules
 .idea
-
-# production
-.cdn
+.bearicorn
 
 # misc
 .DS_Store
