@@ -29,8 +29,8 @@ const kill = async () => {
   await ensuresUserIsAuthenticated()
 
   if (argv._.indexOf("push") > -1) {
+    await ensuresProjectConfigExists()
     await constructPush()
-    await kill()
   } else if (argv._.indexOf("init") > -1) {
     await ensuresProjectConfigExists()
     await kill()

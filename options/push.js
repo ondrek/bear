@@ -1,4 +1,4 @@
-const { log, home, uuid, fs, token } = require("../utils")
+const { log, home, uuid, fs, token, manifest } = require("../utils")
 const fetch = require("node-fetch")
 const tar = require("tar")
 const FormData = require("form-data")
@@ -11,7 +11,7 @@ async function constructPush() {
   const tarFilePath = home.getHomeFolder() + "/" + id + ".tar"
   const stream = await tar.c({ cwd: process.cwd() }, [""])
 
-  stream.pipe(fs.createWriteStream(tarFilePath)).on("close", async () => {
+  await stream.pipe(fs.createWriteStream(tarFilePath)).on("close", async () => {
     const diff = (+new Date() - startTime) / 1000
     console.info(`It took ${diff}s to build a package with id ${id}`)
     await uploadToS3(tarFilePath, id)
@@ -26,7 +26,8 @@ async function uploadToS3(tarName, id) {
   const startTime = +new Date()
   console.info(log.green(`${id} Uploading...`))
 
-  let response = await fetch("http://localhost:3001/api/image/upload", {
+  const app = await manifest.app()
+  const response = await fetch(`http://localhost:3001/api/image/upload/${app}`, {
     method: "POST",
     body: formData,
     headers: { token: await token.getWholeToken() }
@@ -44,6 +45,7 @@ async function uploadToS3(tarName, id) {
 
   const diff = (+new Date() - startTime) / 1000
   console.info(log.green(`${id} Upload done successfully and it took ${diff}s`))
+  process.exit(0)
 }
 
 module.exports = { constructPush }
