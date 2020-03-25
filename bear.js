@@ -8,14 +8,9 @@ const { constructLogout } = require("./options/logout")
 
 console.info("")
 
-const goThroughAllPreChecks = async () => {
-  console.debug("Doing all prechecks")
-  await ensuresHomeFolderExist()
-  await ensuresUserIsAuthenticated()
-}
-
-const kill = async() => {
-  process.kill()
+const kill = async () => {
+  console.info("")
+  process.exit(0)
 }
 
 (async() => {
@@ -23,18 +18,22 @@ const kill = async() => {
 
   if ((argv._.length === 0 && Object.keys(argv).length === 1) || argv._.indexOf("help") > -1) {
     echoHelpTexts()
+    return await kill()
   } else if (argv._.indexOf("logout") > -1) {
     await constructLogout()
+    return await kill()
   }
 
-  await goThroughAllPreChecks()
+  // for running any command you need global and local folder
+  await ensuresHomeFolderExist()
+  await ensuresUserIsAuthenticated()
 
   if (argv._.indexOf("push") > -1) {
     await constructPush()
     await kill()
   } else if (argv._.indexOf("init") > -1) {
-    await ensuresUserIsAuthenticated()
     await ensuresProjectConfigExists()
+    await kill()
   } else {
     console.info("sorry but your command does not exist")
     await kill()

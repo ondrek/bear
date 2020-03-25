@@ -61,7 +61,7 @@ const unlinkFolder = (path) => {
 }
 
 const createLocalConfigFile = async (name) => {
-  const template = await readFile(process.cwd() + "/templates/default")
+  const template = await readFile(__dirname + "/../templates/default")
   const filledIn = template.replace("{{name}}", name)
   await createFile(process.cwd() + "/.bearicorn", filledIn)
 }

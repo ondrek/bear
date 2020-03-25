@@ -8,12 +8,12 @@ function getHomeFolder() {
   return os.homedir() + "/.bearicorn"
 }
 
-function getLocalConfigFile() {
+function getLocalManifest() {
   return process.cwd() + "/.bearicorn"
 }
 
 module.exports = {
   getTokenFilePath,
   getHomeFolder,
-  getLocalConfigFile
+  getLocalManifest
 }

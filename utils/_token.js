@@ -14,6 +14,9 @@ const routineTokenExpirationCheck = async () => {
 // }
 
 async function getWholeToken() {
+  const doesExist = await doesFolderExists(getTokenFilePath())
+  if (!doesExist) return null
+
   return await readFile(getTokenFilePath())
 }
 
