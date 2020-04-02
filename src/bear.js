@@ -3,7 +3,6 @@
 import Listr from "listr"
 import inquirer from "inquirer"
 import "dotenv/config.js"
-import argv from "minimist"
 import arg from "arg"
 import "@babel/polyfill"
 // import "regenerator-runtime/runtime"
@@ -13,7 +12,8 @@ import { echoHelpTexts } from "./options/help.js"
 import { ensuresHomeFolderExist, ensuresUserIsAuthenticated, ensuresProjectConfigExists } from "./options/init.js"
 import { constructLogout } from "./options/logout.js"
 
-console.log(process.env.MY_SECRET)
+console.log("> ", process.env.MY_SECRET)
+process.exit(0)
 
 // function parseArgumentsIntoOptions(rawArgs) {
 //   const args = arg(

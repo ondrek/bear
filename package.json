@@ -15,8 +15,9 @@
   },
   "scripts": {
     "______xx": "babel bear.js -w src/utils -w options -w templates --out-file compiled.js --presets=@babel/preset-env --verbose",
+    "watchxxxwatchxxx": "nodemon --exec babel-node src/bear.js",
     "prepublish": "babel src --out-dir dist",
-    "watch": "nodemon --exec babel-node src/bear.js",
+    "watch": "babel src --watch --out-dir dist --verbose",
     "serve": "node dist/bear.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

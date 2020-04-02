@@ -19,3 +19,4 @@ const fetchFn = async (method = "GET", url = "", data = {}) => {
 }
 
 export { fetchFn }
+

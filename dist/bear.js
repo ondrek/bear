@@ -7,8 +7,6 @@ var _inquirer = _interopRequireDefault(require("inquirer"));
 
 require("dotenv/config.js");
 
-var _minimist = _interopRequireDefault(require("minimist"));
-
 var _arg = _interopRequireDefault(require("arg"));
 
 require("@babel/polyfill");
@@ -24,7 +22,8 @@ var _logout = require("./options/logout.js");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // import "regenerator-runtime/runtime"
-console.log(process.env.MY_SECRET); // function parseArgumentsIntoOptions(rawArgs) {
+console.log("> ", process.env.MY_SECRET);
+process.exit(0); // function parseArgumentsIntoOptions(rawArgs) {
 //   const args = arg(
 //     {
 //       '--giaat': Boolean,
