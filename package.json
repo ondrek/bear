@@ -20,7 +20,7 @@
     "watch": "babel src --watch --out-dir dist --verbose",
     "serve": "node dist/bear.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm version patch && git commit package.json -am 'Version'"
+    "publish": "npm version patch && npm publish"
   },
   "bin": {
     "bearicorn": "dist/bear.js"
