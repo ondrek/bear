@@ -18,8 +18,7 @@
     "prepublish": "babel src --out-dir dist",
     "watch": "nodemon --exec babel-node src/bear.js",
     "serve": "node dist/bear.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm version patch &&  git add package.json && git commit -m 'Patch' && && npm publish"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
     "bearicorn": "dist/bear.js"
