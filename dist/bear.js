@@ -39,69 +39,65 @@ function _parseOptions() {
             return _log["default"].debug("");
 
           case 2:
-            _context2.next = 4;
-            return _log["default"].debug("");
-
-          case 4:
             if (!_args4.args.push) {
-              _context2.next = 15;
+              _context2.next = 13;
               break;
             }
 
-            _context2.next = 7;
+            _context2.next = 5;
             return (0, _init.ensuresHomeFolderExist)();
+
+          case 5:
+            _context2.next = 7;
+            return (0, _init.ensuresUserIsAuthenticated)();
 
           case 7:
             _context2.next = 9;
-            return (0, _init.ensuresUserIsAuthenticated)();
+            return (0, _init.ensuresProjectConfigExists)();
 
           case 9:
             _context2.next = 11;
-            return (0, _init.ensuresProjectConfigExists)();
-
-          case 11:
-            _context2.next = 13;
             return (0, _push.constructPush)();
 
-          case 13:
-            _context2.next = 27;
+          case 11:
+            _context2.next = 25;
             break;
 
-          case 15:
+          case 13:
             if (!_args4.args.init) {
-              _context2.next = 20;
+              _context2.next = 18;
               break;
             }
 
-            _context2.next = 18;
+            _context2.next = 16;
             return (0, _init.ensuresProjectConfigExists)();
 
-          case 18:
-            _context2.next = 27;
+          case 16:
+            _context2.next = 25;
             break;
 
-          case 20:
+          case 18:
             if (!_args4.args.logout) {
-              _context2.next = 25;
+              _context2.next = 23;
               break;
             }
 
-            _context2.next = 23;
+            _context2.next = 21;
             return (0, _logout.constructLogout)();
 
-          case 23:
-            _context2.next = 27;
+          case 21:
+            _context2.next = 25;
             break;
+
+          case 23:
+            _context2.next = 25;
+            return (0, _help.printHelpSection)();
 
           case 25:
             _context2.next = 27;
-            return (0, _help.printHelpSection)();
-
-          case 27:
-            _context2.next = 29;
             return kill();
 
-          case 29:
+          case 27:
           case "end":
             return _context2.stop();
         }

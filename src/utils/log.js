@@ -28,35 +28,50 @@ const debug = async () => {
     {
       title: 'Installing dependencies',
       task: () => {
-        return new Listr([
-          {
-            title: 'Checking git status',
+
+        const tasks = []
+        const nmbr = 10;
+
+        for (let i = 0; i < nmbr; i++){
+          tasks.push({
+            title: i + " nahahahah",
             task: (ctx, task) => new Promise( (resolve, reject) => {
-              setTimeout(() => { resolve() }, 2000)
-            }).catch(() => {
-              ctx.yarn = false;
-              task.skip('Yarn not available, install it via `npm install -g yarn`');
-            }),
-          },
-          {
-            title: 'Checking remote history',
-            task: (ctx, task) => new Promise( (resolve, reject) => {
-              setTimeout(() => { resolve() }, 2000)
-            }).catch(() => {
-              ctx.yarn = false;
-              task.skip('Yarn not available, install it via `npm install -g yarn`');
-            }),
-          },
-          {
-            title: 'Checking remote history',
-            task: (ctx, task) => new Promise( (resolve, reject) => {
-              setTimeout(() => { resolve() }, 2000)
-            }).catch(() => {
-              ctx.yarn = false;
-              task.skip('Yarn not available, install it via `npm install -g yarn`');
-            }),
-          }
-        ], {concurrent: true});
+              setTimeout(() => { resolve() }, 300)
+            })
+          })
+        }
+
+        return new Listr(tasks)
+
+        // return new Listr([
+        //   {
+        //     title: 'Checking git status',
+        //     task: (ctx, task) => new Promise( (resolve, reject) => {
+        //       setTimeout(() => { resolve() }, 2000)
+        //     }).catch(() => {
+        //       ctx.yarn = false;
+        //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+        //     }),
+        //   },
+        //   {
+        //     title: 'Checking remote history',
+        //     task: (ctx, task) => new Promise( (resolve, reject) => {
+        //       setTimeout(() => { resolve() }, 2000)
+        //     }).catch(() => {
+        //       ctx.yarn = false;
+        //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+        //     }),
+        //   },
+        //   {
+        //     title: 'Checking remote history',
+        //     task: (ctx, task) => new Promise( (resolve, reject) => {
+        //       setTimeout(() => { resolve() }, 2000)
+        //     }).catch(() => {
+        //       ctx.yarn = false;
+        //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+        //     }),
+        //   }
+        // ], {concurrent: true});
       }
     },
     {

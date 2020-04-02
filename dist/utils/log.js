@@ -46,52 +46,55 @@ var debug = /*#__PURE__*/function () {
             }, {
               title: 'Installing dependencies',
               task: function task() {
-                return new _listr["default"]([{
-                  title: 'Checking git status',
-                  task: function task(ctx, _task) {
-                    return new Promise(function (resolve, reject) {
-                      setTimeout(function () {
-                        resolve();
-                      }, 2000);
-                    })["catch"](function () {
-                      ctx.yarn = false;
+                var tasks = [];
+                var nmbr = 10;
 
-                      _task.skip('Yarn not available, install it via `npm install -g yarn`');
-                    });
-                  }
-                }, {
-                  title: 'Checking remote history',
-                  task: function task(ctx, _task2) {
-                    return new Promise(function (resolve, reject) {
-                      setTimeout(function () {
-                        resolve();
-                      }, 2000);
-                    })["catch"](function () {
-                      ctx.yarn = false;
+                for (var i = 0; i < nmbr; i++) {
+                  tasks.push({
+                    title: i + " nahahahah",
+                    task: function task(ctx, _task) {
+                      return new Promise(function (resolve, reject) {
+                        setTimeout(function () {
+                          resolve();
+                        }, 300);
+                      });
+                    }
+                  });
+                }
 
-                      _task2.skip('Yarn not available, install it via `npm install -g yarn`');
-                    });
-                  }
-                }, {
-                  title: 'Checking remote history',
-                  task: function task(ctx, _task3) {
-                    return new Promise(function (resolve, reject) {
-                      setTimeout(function () {
-                        resolve();
-                      }, 2000);
-                    })["catch"](function () {
-                      ctx.yarn = false;
-
-                      _task3.skip('Yarn not available, install it via `npm install -g yarn`');
-                    });
-                  }
-                }], {
-                  concurrent: true
-                });
+                return new _listr["default"](tasks); // return new Listr([
+                //   {
+                //     title: 'Checking git status',
+                //     task: (ctx, task) => new Promise( (resolve, reject) => {
+                //       setTimeout(() => { resolve() }, 2000)
+                //     }).catch(() => {
+                //       ctx.yarn = false;
+                //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+                //     }),
+                //   },
+                //   {
+                //     title: 'Checking remote history',
+                //     task: (ctx, task) => new Promise( (resolve, reject) => {
+                //       setTimeout(() => { resolve() }, 2000)
+                //     }).catch(() => {
+                //       ctx.yarn = false;
+                //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+                //     }),
+                //   },
+                //   {
+                //     title: 'Checking remote history',
+                //     task: (ctx, task) => new Promise( (resolve, reject) => {
+                //       setTimeout(() => { resolve() }, 2000)
+                //     }).catch(() => {
+                //       ctx.yarn = false;
+                //       task.skip('Yarn not available, install it via `npm install -g yarn`');
+                //     }),
+                //   }
+                // ], {concurrent: true});
               }
             }, {
               title: 'Creating home folder',
-              task: function task(ctx, _task4) {
+              task: function task(ctx, _task2) {
                 return new Promise(function (resolve, reject) {
                   setTimeout(function () {
                     resolve();
@@ -99,12 +102,12 @@ var debug = /*#__PURE__*/function () {
                 })["catch"](function () {
                   ctx.yarn = false;
 
-                  _task4.skip('Yarn not available, install it via `npm install -g yarn`');
+                  _task2.skip('Yarn not available, install it via `npm install -g yarn`');
                 });
               }
             }, {
               title: 'Generating private and public key',
-              task: function task(ctx, _task5) {
+              task: function task(ctx, _task3) {
                 return new Promise(function (resolve, reject) {
                   setTimeout(function () {
                     resolve();
@@ -112,7 +115,7 @@ var debug = /*#__PURE__*/function () {
                 })["catch"](function () {
                   ctx.yarn = false;
 
-                  _task5.skip('Yarn not available, install it via `npm install -g yarn`');
+                  _task3.skip('Yarn not available, install it via `npm install -g yarn`');
                 });
               },
               skip: function skip() {
@@ -124,7 +127,7 @@ var debug = /*#__PURE__*/function () {
               }
             }, {
               title: 'Getting public token from Bearicorn server',
-              task: function task(ctx, _task6) {
+              task: function task(ctx, _task4) {
                 return new Promise(function (resolve, reject) {
                   setTimeout(function () {
                     resolve();
@@ -132,7 +135,7 @@ var debug = /*#__PURE__*/function () {
                 })["catch"](function () {
                   ctx.yarn = false;
 
-                  _task6.skip('Yarn not available, install it via `npm install -g yarn`');
+                  _task4.skip('Yarn not available, install it via `npm install -g yarn`');
                 });
               }
             }], {

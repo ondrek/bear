@@ -15,7 +15,6 @@ import log from "./utils/log.js"
 
 async function parseOptions() {
   await log.debug("")
-  await log.debug("")
 
   if (args.push) {
     await ensuresHomeFolderExist()
