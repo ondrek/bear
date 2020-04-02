@@ -1,6 +1,6 @@
-const { doesFolderExists, readFile } = require("./_fs")
-const { getLocalManifest } = require("./_home")
-const yaml = require("js-yaml")
+import { doesFolderExists, readFile } from "./_fs.js"
+import { getLocalManifest } from "./_home.js"
+import yaml from "js-yaml"
 
 async function app () {
   const doesManifestExist = await doesFolderExists(getLocalManifest())
@@ -15,4 +15,4 @@ async function app () {
   return document.GeneralDescription.Name
 }
 
-module.exports = { app }
+export { app }

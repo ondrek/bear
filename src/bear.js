@@ -2,47 +2,48 @@
 
 import Listr from "listr"
 import inquirer from "inquirer"
-import "dotenv/config"
+import "dotenv/config.js"
 import argv from "minimist"
 import arg from "arg"
+import "@babel/polyfill"
+// import "regenerator-runtime/runtime"
 
-import { constructPush } from "./options/push"
-import { echoHelpTexts } from "./options/help"
-import { ensuresHomeFolderExist, ensuresUserIsAuthenticated, ensuresProjectConfigExists } from "./options/init"
-import { constructLogout } from "./options/logout"
+import { constructPush } from "./options/push.js"
+import { echoHelpTexts } from "./options/help.js"
+import { ensuresHomeFolderExist, ensuresUserIsAuthenticated, ensuresProjectConfigExists } from "./options/init.js"
+import { constructLogout } from "./options/logout.js"
 
 console.log(process.env.MY_SECRET)
 
-function parseArgumentsIntoOptions(rawArgs) {
-  const args = arg(
-    {
-      '--giaat': Boolean,
-      '--yes': Boolean,
-      '--instddall': Boolean,
-      '-g': '--git',
-      '-y': '--yes',
-      '-i': '--installss',
-    },
-    {
-      argv: rawArgs.slice(2),
-    }
-  );
-  return {
-    skipPrompts: args['--yes'] || false,
-    git: args['--git'] || false,
-    template: args._[0],
-    runInstall: args['--install'] || false,
-  };
-}
-
-console.info(parseArgumentsIntoOptions(process.argv))
-process.exit(0)
-
-
-const kill = async () => {
-  console.info("")
-  process.exit(0)
-}
+// function parseArgumentsIntoOptions(rawArgs) {
+//   const args = arg(
+//     {
+//       '--giaat': Boolean,
+//       '--yes': Boolean,
+//       '--instddall': Boolean,
+//       '-g': '--git',
+//       '-y': '--yes',
+//       '-i': '--installss',
+//     },
+//     {
+//       argv: rawArgs.slice(2),
+//     }
+//   );
+//   return {
+//     skipPrompts: args['--yes'] || false,
+//     git: args['--git'] || false,
+//     template: args._[0],
+//     template1: args._[1],
+//     runInstall: args['--install'] || false,
+//   };
+// }
+//
+// console.info(parseArgumentsIntoOptions(process.argv))
+//
+// const kill = async () => {
+//   console.info("")
+//   process.exit(0)
+// }
 
 // (async() => {
 //   // TODO "bear inita" breaks because indexOf detects it as well
@@ -147,5 +148,5 @@ const tasks = new Listr([
 ]);
 
 tasks.run().catch(err => {
-  // console.error(err);
+  console.error(err);
 });

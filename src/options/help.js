@@ -1,4 +1,4 @@
-const { log } = require("../utils")
+import { log } from "../utils/index.js"
 
 const echoHelpTexts = () => {
   console.info(log.dim("Bearicorn is script runner of docker-based pay-as-you-go auto-scale tool"))
@@ -17,6 +17,6 @@ const echoHelpTexts = () => {
   `)
 }
 
-module.exports = {
-    echoHelpTexts
+export {
+  echoHelpTexts
 }

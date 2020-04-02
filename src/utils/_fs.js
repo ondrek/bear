@@ -1,4 +1,4 @@
-const fs = require("fs")
+import fs from "fs"
 
 const readFile = (path) => {
   return new Promise((resolve, reject) => {
@@ -66,7 +66,7 @@ const createLocalConfigFile = async (name) => {
   await createFile(process.cwd() + "/.bearicorn", filledIn)
 }
 
-module.exports = {
+export {
   readFile,
   doesFolderExists,
   createFolder,
@@ -74,7 +74,7 @@ module.exports = {
   unlinkFile,
   unlinkFolder,
   createLocalConfigFile,
-  createWriteStream: fs.createWriteStream,
-  createReadStream: fs.createReadStream,
-  statSync: fs.statSync
+  // createWriteStream: fs.createWriteStream,
+  // createReadStream: fs.createReadStream,
+  // statSync: fs.statSync
 }

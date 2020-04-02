@@ -1,4 +1,5 @@
-const chalk = require("chalk")
+import chalk from "chalk"
+
 const title = chalk.dim("Bearicorn; ")
 
 const dim = (message, prefix) => {
@@ -25,4 +26,4 @@ const green = (message, prefix) => {
         : chalk.green(message)
 }
 
-module.exports = { dim, bold, green, red }
+export { dim, bold, green, red }

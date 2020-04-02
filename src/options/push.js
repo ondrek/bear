@@ -1,7 +1,7 @@
-const { log, home, uuid, fs, token, manifest } = require("../utils")
-const fetch = require("node-fetch")
-const tar = require("tar")
-const FormData = require("form-data")
+import { log, home, uuid, fs, token, manifest } from "../utils/index.js"
+import fetch from "node-fetch"
+import tar from "tar"
+import FormData from "form-data"
 
 async function constructPush() {
   console.info(log.green("Creating image from the current source code.."))
@@ -48,4 +48,4 @@ async function uploadToS3(tarName, id) {
   process.exit(0)
 }
 
-module.exports = { constructPush }
+export { constructPush }

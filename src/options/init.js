@@ -1,5 +1,5 @@
-const readline = require("readline")
-const { log, fs, home, fetch } = require("../utils")
+import readline from "readline"
+import { log, fs, home, fetch } from "../utils/index.js"
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -75,7 +75,7 @@ const ensuresHomeFolderExist = async () => {
   console.info(log.dim("It seems like you run cli for the first time, we created home folder"))
 }
 
-module.exports = {
+export {
   ensuresHomeFolderExist,
   ensuresUserIsAuthenticated,
   ensuresProjectConfigExists

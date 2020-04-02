@@ -1,4 +1,4 @@
-const os = require("os")
+import os from "os"
 
 function getTokenFilePath() {
     return os.homedir() + "/.bearicorn/TOKEN"
@@ -12,7 +12,7 @@ function getLocalManifest() {
   return process.cwd() + "/.bearicorn"
 }
 
-module.exports = {
+export {
   getTokenFilePath,
   getHomeFolder,
   getLocalManifest

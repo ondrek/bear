@@ -1,4 +1,4 @@
-const { log, fs, home } = require("../utils")
+import { log, fs, home } from "../utils/index.js"
 
 const constructLogout = async () => {
   const bearFolderPath = home.getHomeFolder()
@@ -14,6 +14,4 @@ const constructLogout = async () => {
   }
 }
 
-module.exports = {
-  constructLogout
-}
+export { constructLogout }

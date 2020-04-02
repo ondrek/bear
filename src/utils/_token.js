@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken")
-const { doesFolderExists, readFile } = require("./_fs")
-const { getTokenFilePath } = require("./_home")
-const { red } = require("./_log")
+import jwt from "jsonwebtoken"
+import { doesFolderExists, readFile } from "./_fs.js"
+import { getTokenFilePath } from "./_home.js"
+import { red } from "./_log.js"
 
 const routineTokenExpirationCheck = async () => {
   // log.green("Checking if JWT token is not expired and does exists..")
@@ -32,7 +32,7 @@ async function getTokenUsername() {
   return jwt.decode(tokenFile).data.username
 }
 
-module.exports = {
+export {
   routineTokenExpirationCheck,
   getWholeToken
 }

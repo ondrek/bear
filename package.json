@@ -1,36 +1,40 @@
 {
-  "name": "bear-cli",
+  "name": "bearicorn",
   "version": "2.0.0",
   "description": "Cli for Bearicorn",
-  "main": "compiled.js",
+  "main": "dist/bear.js",
   "preferGlobal": true,
   "license": "Apache-2.0",
-  "homepage": "https://github.com/ondrek/bear-cli",
+  "homepage": "https://github.com/ondrek/bearicorn",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ondrek/bear-cli.git"
+    "url": "git+https://github.com/ondrek/cli.git"
   },
   "engines": {
     "node": ">=6"
   },
   "scripts": {
-    "start": "babel bear.js -w utils -w options -w templates --out-file compiled.js --presets=@babel/preset-env --verbose",
-    "prepublish": "babel bear.js --out-file compiled.js"
+    "______xx": "babel bear.js -w src/utils -w options -w templates --out-file compiled.js --presets=@babel/preset-env --verbose",
+    "prepublish": "babel src --out-dir dist",
+    "watch": "nodemon --exec babel-node src/bear.js",
+    "serve": "node dist/bear.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "bear": "compiled.js"
+    "bearicorn": "dist/bear.js"
   },
   "dependencies": {
-    "arg": "^4.1.3",
+    "@babel/runtime": "^7.9.2",
+    "arg": "4.1.3",
     "chalk": "3.0.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "8.2.0",
     "form-data": "3.0.0",
     "inquirer": "7.1.0",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
-    "listr": "^0.14.3",
+    "listr": "0.14.3",
     "node-fetch": "2.6.0",
-    "prompts": "^2.3.2",
+    "prompts": "2.3.2",
     "tar": "6.0.1",
     "uuid": "7.0.2"
   },
@@ -38,10 +42,8 @@
     "@babel/cli": "7.8.4",
     "@babel/core": "7.9.0",
     "@babel/node": "7.8.7",
+    "@babel/polyfill": "7.8.7",
     "@babel/preset-env": "7.9.0",
-    "nodemon": "2.0.2"
-  },
-  "babel": {
-    "presets": [ "@babel/preset-env" ]
+    "regenerator-runtime": "0.13.5"
   }
 }

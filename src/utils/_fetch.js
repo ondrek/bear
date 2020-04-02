@@ -1,5 +1,5 @@
-const fetch = require("node-fetch")
-const { getWholeToken } = require("./_token")
+import fetch from "node-fetch"
+// import { getWholeToken } from "./_token"
 
 const fetchFn = async (method = "GET", url = "", data = {}) => {
   const fullUrl = "http://localhost:3001/api" + url
@@ -18,4 +18,4 @@ const fetchFn = async (method = "GET", url = "", data = {}) => {
   return await response.json()
 }
 
-module.exports = fetchFn
+export { fetchFn }
