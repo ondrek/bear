@@ -1,9 +1,9 @@
 import { log } from "../utils/index.js"
 
-const echoHelpTexts = () => {
-  console.info(log.dim("Bearicorn is script runner of docker-based pay-as-you-go auto-scale tool"))
-
+async function printHelpSection() {
   console.info(`
+  ${log.dim("Try")} bearicorn ${log.dim("with one command from the bellow:")}
+
   init        ${log.dim("Link your Cli to your cloud online account", false)}
   push        ${log.dim("Push an image or a repository to a registry", false)}
   pull        ${log.dim("Unlinks this cli from your online cloud account", false)}
@@ -18,5 +18,5 @@ const echoHelpTexts = () => {
 }
 
 export {
-  echoHelpTexts
+  printHelpSection
 }

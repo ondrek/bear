@@ -3,9 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchFn = void 0;
+exports["default"] = void 0;
 
 var _nodeFetch = _interopRequireDefault(require("node-fetch"));
+
+var _token = require("./_token");
+
+var _log = _interopRequireDefault(require("./log"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -13,9 +17,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-// import { getWholeToken } from "./_token"
-var fetchFn = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+function fetchFn() {
+  return _fetchFn.apply(this, arguments);
+}
+
+function _fetchFn() {
+  _fetchFn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var method,
         url,
         data,
@@ -32,7 +39,7 @@ var fetchFn = /*#__PURE__*/function () {
             data = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             fullUrl = "http://localhost:3001/api" + url;
             _context.next = 6;
-            return getWholeToken();
+            return (0, _token.getWholeToken)();
 
           case 6:
             _context.t0 = _context.sent;
@@ -46,6 +53,14 @@ var fetchFn = /*#__PURE__*/function () {
               method: method,
               headers: headers,
               body: method !== "GET" ? JSON.stringify(data) : null
+            })["catch"](function (error) {
+              if (error.code === "ECONNREFUSED") {
+                _log["default"].error("Sorry, but it seems you don't have connection to the internet");
+
+                return process.exit(1);
+              }
+
+              console.info("There was an unhandled error while making request", error);
             });
 
           case 10:
@@ -63,10 +78,8 @@ var fetchFn = /*#__PURE__*/function () {
       }
     }, _callee);
   }));
+  return _fetchFn.apply(this, arguments);
+}
 
-  return function fetchFn() {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-exports.fetchFn = fetchFn;
+var _default = fetchFn;
+exports["default"] = _default;

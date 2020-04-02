@@ -5,15 +5,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.log = exports.manifest = exports.fs = exports.token = exports.uuid = exports.fetch = exports.home = void 0;
+Object.defineProperty(exports, "fetch", {
+  enumerable: true,
+  get: function get() {
+    return _fetch["default"];
+  }
+});
+exports.log = exports.manifest = exports.fs = exports.token = exports.uuid = exports.home = void 0;
 
 var home = _interopRequireWildcard(require("./_home.js"));
 
 exports.home = home;
 
-var fetch = _interopRequireWildcard(require("./_fetch.js"));
-
-exports.fetch = fetch;
+var _fetch = _interopRequireDefault(require("./_fetch.js"));
 
 var uuid = _interopRequireWildcard(require("./_uuid.js"));
 
@@ -34,6 +38,8 @@ exports.manifest = manifest;
 var log = _interopRequireWildcard(require("./_log.js"));
 
 exports.log = log;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
