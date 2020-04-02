@@ -8,7 +8,7 @@ const constructLogout = async () => {
 
   if (doesExist) {
     console.info(log.dim("Removing ~/.bearicorn home folder with all its user related data "))
-    console.info(log.green("Home Bearicorn folder was removed"))
+    console.info(log.green("Home Bearic sdadassssorn folder was removed"))
   } else {
     console.info(log.green("User was already logged out.. see you later."))
   }
