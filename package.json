@@ -1,6 +1,6 @@
 {
   "name": "bearicorn",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Cli for Bearicorn",
   "main": "dist/bear.js",
   "preferGlobal": true,
