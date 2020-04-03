@@ -5,10 +5,10 @@
   "main": "dist/bear.js",
   "preferGlobal": true,
   "license": "Apache-2.0",
-  "homepage": "https://github.com/ondrek/bearicorn",
+  "homepage": "https://github.com/ondrek/bear-cli",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ondrek/cli.git"
+    "url": "https://github.com/ondrek/bear-cli"
   },
   "engines": {
     "node": ">=6"
