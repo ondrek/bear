@@ -17,9 +17,7 @@ import { debug } from "./utils/debug.js"
 
 async function parseOptions() {
   await debug("")
-
-  return process.exit(1)
-
+  
   if (args.push) {
     await ensuresHomeFolderExist()
     await ensuresUserIsAuthenticated()
