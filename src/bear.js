@@ -12,26 +12,11 @@ import { constructLogout } from "./options/logout.js"
 import { args } from "./utils/args.js"
 import log from "./utils/log.js"
 import { pipeline } from "./utils/tasks.js"
+import { debug } from "./utils/debug.js"
 
-console.info("")
 
 async function parseOptions() {
-  // await log.debug("")
-
-  await pipeline([
-    { title: "1", task: wait },
-    { title: "2", task: wait },
-    { title: "3", task: [
-      { title: "3a", task: wait },
-      { title: "3b", task: [
-          { title: "3b-x", task: wait },
-          { title: "3b-y", task: wait },
-          { title: "3b-c", task: wait }
-        ] },
-      { title: "3c", task: wait }
-    ] },
-    { title: "4", task: wait }
-  ])
+  await debug("")
 
   return process.exit(1)
 

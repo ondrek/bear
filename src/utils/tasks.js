@@ -1,8 +1,9 @@
 import Listr from "listr"
+import chalk from "chalk"
 
 const transform = (arr) => {
   arr = arr.map(item => {
-    if (Array.isArray(item.task)) return { ...item, task: () => transform(item.task)  }
+    if (Array.isArray(item.task)) return { title: item.title, task: () => transform(item.task)  }
     return item
   })
 
@@ -13,4 +14,8 @@ const pipeline = async (items) => {
   await transform(items).run().catch(err => console.error("Piping error", err))
 }
 
-export { pipeline }
+const dim = (message) => {
+  return chalk.dim(message)
+}
+
+export { pipeline, dim }

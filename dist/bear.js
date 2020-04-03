@@ -21,13 +21,13 @@ var _log = _interopRequireDefault(require("./utils/log.js"));
 
 var _tasks = require("./utils/tasks.js");
 
+var _debug = require("./utils/debug.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-console.info("");
 
 function parseOptions() {
   return _parseOptions.apply(this, arguments);
@@ -40,37 +40,7 @@ function _parseOptions() {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return (0, _tasks.pipeline)([{
-              title: "1",
-              task: wait
-            }, {
-              title: "2",
-              task: wait
-            }, {
-              title: "3",
-              task: [{
-                title: "3a",
-                task: wait
-              }, {
-                title: "3b",
-                task: [{
-                  title: "3b-x",
-                  task: wait
-                }, {
-                  title: "3b-y",
-                  task: wait
-                }, {
-                  title: "3b-c",
-                  task: wait
-                }]
-              }, {
-                title: "3c",
-                task: wait
-              }]
-            }, {
-              title: "4",
-              task: wait
-            }]);
+            return (0, _debug.debug)("");
 
           case 2:
             return _context2.abrupt("return", process.exit(1));
