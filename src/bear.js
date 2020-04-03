@@ -11,10 +11,29 @@ import { constructLogout } from "./options/logout.js"
 
 import { args } from "./utils/args.js"
 import log from "./utils/log.js"
+import { pipeline } from "./utils/tasks.js"
 
+console.info("")
 
 async function parseOptions() {
-  await log.debug("")
+  // await log.debug("")
+
+  await pipeline([
+    { title: "1", task: wait },
+    { title: "2", task: wait },
+    { title: "3", task: [
+      { title: "3a", task: wait },
+      { title: "3b", task: [
+          { title: "3b-x", task: wait },
+          { title: "3b-y", task: wait },
+          { title: "3b-c", task: wait }
+        ] },
+      { title: "3c", task: wait }
+    ] },
+    { title: "4", task: wait }
+  ])
+
+  return process.exit(1)
 
   if (args.push) {
     await ensuresHomeFolderExist()
@@ -22,7 +41,8 @@ async function parseOptions() {
     await ensuresProjectConfigExists()
     await constructPush()
   } else if (args.init) {
-    await ensuresProjectConfigExists()
+    // await ensuresProjectConfigExists()
+    // await tasks.run().catch(err => console.error(err))
   } else if (args.logout) {
     await constructLogout()
   } else {
@@ -38,85 +58,6 @@ async function kill() {
   console.info("")
   process.exit(1)
 }
-
-
-// const tasks = new Listr([
-//   {
-//     title: 'Success',
-//     task: () => 'Foo'
-//   },
-//   {
-//     title: 'Installing dependencies',
-//     task: () => {
-//       return new Listr([
-//         {
-//           title: 'Checking git status',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         },
-//         {
-//           title: 'Checking remote history',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         },
-//         {
-//           title: 'Checking remote history',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         }
-//       ], {concurrent: true});
-//     }
-//   },
-//   {
-//     title: 'Creating home folder',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     })
-//   },
-//   {
-//     title: 'Generating private and public key',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     }),
-//     skip: () => {
-//       const random = Math.random()
-//       if (random > 0.5) {
-//         return 'Was skipped because random was ' + random;
-//       }
-//     }
-//   },
-//   {
-//     title: 'Getting public token from Bearicorn server',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     })
-//   }
-// ])
-//
-// tasks.run().catch(err => {
-//   console.error(err)
-// })
 
 process.on("uncaughtException", (err) => {
   console.error("We don't handle this error. Shit.", err)

@@ -19,11 +19,15 @@ var _args4 = require("./utils/args.js");
 
 var _log = _interopRequireDefault(require("./utils/log.js"));
 
+var _tasks = require("./utils/tasks.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+console.info("");
 
 function parseOptions() {
   return _parseOptions.apply(this, arguments);
@@ -36,68 +40,88 @@ function _parseOptions() {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return _log["default"].debug("");
+            return (0, _tasks.pipeline)([{
+              title: "1",
+              task: wait
+            }, {
+              title: "2",
+              task: wait
+            }, {
+              title: "3",
+              task: [{
+                title: "3a",
+                task: wait
+              }, {
+                title: "3b",
+                task: [{
+                  title: "3b-x",
+                  task: wait
+                }, {
+                  title: "3b-y",
+                  task: wait
+                }, {
+                  title: "3b-c",
+                  task: wait
+                }]
+              }, {
+                title: "3c",
+                task: wait
+              }]
+            }, {
+              title: "4",
+              task: wait
+            }]);
 
           case 2:
-            if (!_args4.args.push) {
-              _context2.next = 13;
-              break;
-            }
+            return _context2.abrupt("return", process.exit(1));
 
-            _context2.next = 5;
-            return (0, _init.ensuresHomeFolderExist)();
-
-          case 5:
-            _context2.next = 7;
+          case 6:
+            _context2.next = 8;
             return (0, _init.ensuresUserIsAuthenticated)();
 
-          case 7:
-            _context2.next = 9;
+          case 8:
+            _context2.next = 10;
             return (0, _init.ensuresProjectConfigExists)();
 
-          case 9:
-            _context2.next = 11;
+          case 10:
+            _context2.next = 12;
             return (0, _push.constructPush)();
 
-          case 11:
-            _context2.next = 25;
+          case 12:
+            _context2.next = 24;
             break;
 
-          case 13:
+          case 14:
             if (!_args4.args.init) {
-              _context2.next = 18;
+              _context2.next = 17;
               break;
             }
 
-            _context2.next = 16;
-            return (0, _init.ensuresProjectConfigExists)();
-
-          case 16:
-            _context2.next = 25;
+            _context2.next = 24;
             break;
 
-          case 18:
+          case 17:
             if (!_args4.args.logout) {
-              _context2.next = 23;
+              _context2.next = 22;
               break;
             }
 
-            _context2.next = 21;
+            _context2.next = 20;
             return (0, _logout.constructLogout)();
 
-          case 21:
-            _context2.next = 25;
+          case 20:
+            _context2.next = 24;
             break;
 
-          case 23:
-            _context2.next = 25;
+          case 22:
+            _context2.next = 24;
             return (0, _help.printHelpSection)();
 
-          case 25:
-            _context2.next = 27;
+          case 24:
+            _context2.next = 26;
             return kill();
 
-          case 27:
+          case 26:
           case "end":
             return _context2.stop();
         }
@@ -128,84 +152,7 @@ _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 
 function kill() {
   return _kill.apply(this, arguments);
-} // const tasks = new Listr([
-//   {
-//     title: 'Success',
-//     task: () => 'Foo'
-//   },
-//   {
-//     title: 'Installing dependencies',
-//     task: () => {
-//       return new Listr([
-//         {
-//           title: 'Checking git status',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         },
-//         {
-//           title: 'Checking remote history',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         },
-//         {
-//           title: 'Checking remote history',
-//           task: (ctx, task) => new Promise( (resolve, reject) => {
-//             setTimeout(() => { resolve() }, 2000)
-//           }).catch(() => {
-//             ctx.yarn = false;
-//             task.skip('Yarn not available, install it via `npm install -g yarn`');
-//           }),
-//         }
-//       ], {concurrent: true});
-//     }
-//   },
-//   {
-//     title: 'Creating home folder',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     })
-//   },
-//   {
-//     title: 'Generating private and public key',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     }),
-//     skip: () => {
-//       const random = Math.random()
-//       if (random > 0.5) {
-//         return 'Was skipped because random was ' + random;
-//       }
-//     }
-//   },
-//   {
-//     title: 'Getting public token from Bearicorn server',
-//     task: (ctx, task) => new Promise( (resolve, reject) => {
-//       setTimeout(() => { resolve() }, 2000)
-//     }).catch(() => {
-//       ctx.yarn = false;
-//       task.skip('Yarn not available, install it via `npm install -g yarn`');
-//     })
-//   }
-// ])
-//
-// tasks.run().catch(err => {
-//   console.error(err)
-// })
-
+}
 
 function _kill() {
   _kill = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {

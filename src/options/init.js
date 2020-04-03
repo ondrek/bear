@@ -1,5 +1,6 @@
 import readline from "readline"
 import { log, fs, home, fetch } from "../utils/index.js"
+import { constructTask } from "../utils/tasks.js"
 
 const rl = readline.createInterface({
   input: process.stdin,
