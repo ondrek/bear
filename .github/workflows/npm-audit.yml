@@ -1,4 +1,4 @@
-name: npm-audit
+name: check-npm-audit
 
 on:
   push:
