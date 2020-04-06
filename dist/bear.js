@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 "use strict";
 
-var _listr = _interopRequireDefault(require("listr"));
-
 var _inquirer = _interopRequireDefault(require("inquirer"));
+
+var _chalk = _interopRequireDefault(require("chalk"));
 
 require("@babel/polyfill");
 
@@ -15,13 +15,15 @@ var _init = require("./options/init.js");
 
 var _logout = require("./options/logout.js");
 
-var _args4 = require("./utils/args.js");
+var _args5 = require("./utils/args.js");
 
 var _log = _interopRequireDefault(require("./utils/log.js"));
 
 var _tasks = require("./utils/tasks.js");
 
 var _debug = require("./utils/debug.js");
+
+var _index = require("./unicorn/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -34,75 +36,95 @@ function parseOptions() {
 }
 
 function _parseOptions() {
-  _parseOptions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+  _parseOptions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+    var sleep;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            _context2.next = 2;
-            return (0, _debug.debug)("");
-
-          case 2:
-            if (!_args4.args.push) {
-              _context2.next = 13;
-              break;
-            }
-
-            _context2.next = 5;
-            return (0, _init.ensuresHomeFolderExist)();
-
-          case 5:
-            _context2.next = 7;
-            return (0, _init.ensuresUserIsAuthenticated)();
-
-          case 7:
-            _context2.next = 9;
-            return (0, _init.ensuresProjectConfigExists)();
-
-          case 9:
-            _context2.next = 11;
-            return (0, _push.constructPush)();
-
-          case 11:
-            _context2.next = 23;
-            break;
-
-          case 13:
-            if (!_args4.args.init) {
-              _context2.next = 16;
-              break;
-            }
-
-            _context2.next = 23;
-            break;
-
-          case 16:
-            if (!_args4.args.logout) {
-              _context2.next = 21;
-              break;
-            }
-
-            _context2.next = 19;
-            return (0, _logout.constructLogout)();
-
-          case 19:
-            _context2.next = 23;
-            break;
-
-          case 21:
-            _context2.next = 23;
+            _context3.next = 2;
             return (0, _help.printHelpSection)();
 
-          case 23:
-            _context2.next = 25;
+          case 2:
+            sleep = /*#__PURE__*/function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ms) {
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        return _context2.abrupt("return", new Promise(function (resolve) {
+                          return setTimeout(resolve, ms);
+                        }));
+
+                      case 1:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+
+              return function sleep(_x) {
+                return _ref2.apply(this, arguments);
+              };
+            }();
+
+            if (!_args5.args.push) {
+              _context3.next = 14;
+              break;
+            }
+
+            _context3.next = 6;
+            return ensuresHomeFolderExist();
+
+          case 6:
+            _context3.next = 8;
+            return ensuresUserIsAuthenticated();
+
+          case 8:
+            _context3.next = 10;
+            return ensuresProjectConfigExists();
+
+          case 10:
+            _context3.next = 12;
+            return (0, _push.constructPush)();
+
+          case 12:
+            _context3.next = 22;
+            break;
+
+          case 14:
+            if (!_args5.args.init) {
+              _context3.next = 19;
+              break;
+            }
+
+            _context3.next = 17;
+            return (0, _init.constructInit)();
+
+          case 17:
+            _context3.next = 22;
+            break;
+
+          case 19:
+            if (!_args5.args.logout) {
+              _context3.next = 22;
+              break;
+            }
+
+            _context3.next = 22;
+            return (0, _logout.constructLogout)();
+
+          case 22:
+            _context3.next = 24;
             return kill();
 
-          case 25:
+          case 24:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
   return _parseOptions.apply(this, arguments);
 }
@@ -131,28 +153,31 @@ function kill() {
 }
 
 function _kill() {
-  _kill = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+  _kill = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
-            console.info("");
             process.exit(1);
 
-          case 2:
+          case 1:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3);
+    }, _callee4);
   }));
   return _kill.apply(this, arguments);
 }
 
-process.on("uncaughtException", function (err) {
-  console.error("We don't handle this error. Shit.", err);
+process.on("uncaughtException", handleError);
+process.on("unhandledRejection", handleError);
+
+function handleError(error) {
+  console.error(_chalk["default"].bgRed("\n\n  > Unhandled error, this is a real problem and should have never happen"));
   process.exit(1);
-});
+}
+
 process.on("exit", function (code) {
   console.log("");
 });

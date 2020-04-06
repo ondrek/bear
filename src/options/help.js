@@ -14,9 +14,9 @@ async function printHelpSection() {
   logout      ${log.dim("Unlinks this cli from your online cloud account", false)}
   version     ${log.dim("Show the Docker version information", false)}
   hello       ${log.dim("Creates example of app in multiple languages", false)}
+
+  ${log.dim("Debug info")}
   `)
 }
 
-export {
-  printHelpSection
-}
+export { printHelpSection }
