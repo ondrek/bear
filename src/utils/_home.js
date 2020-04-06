@@ -1,7 +1,7 @@
 import os from "os"
 
 function getTokenFilePath() {
-    return os.homedir() + "/.bearicorn/TOKEN"
+  return os.homedir() + "/.bearicorn/TOKEN"
 }
 
 function getHomeFolder() {

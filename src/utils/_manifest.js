@@ -2,7 +2,7 @@ import { doesFolderExists, readFile } from "./_fs.js"
 import { getLocalManifest } from "./_home.js"
 import yaml from "js-yaml"
 
-async function app () {
+async function app() {
   const doesManifestExist = await doesFolderExists(getLocalManifest())
 
   if (!doesManifestExist) {

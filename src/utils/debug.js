@@ -6,7 +6,7 @@ async function getMemory(ctx, task) {
 }
 
 async function getCliVersion(ctx, task) {
-  task.title = dim(`Cli version is 2.0.10`)
+  task.title = dim("Cli version is 2.0.10")
 }
 
 async function getUserDetails(ctx, task) {

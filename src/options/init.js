@@ -15,7 +15,7 @@ const pickAnApp = async (choices) => {
   if (choices.indexOf(name) === -1) await pickAnApp(choices)
 }
 
-async function ensuresManifestExists () {
+async function ensuresManifestExists() {
   const print = echo()
   const localManifestFile = home.getLocalManifest()
   print.start("Ensuring local manifest does exist")

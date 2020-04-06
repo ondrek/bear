@@ -34,5 +34,6 @@ async function getTokenUsername() {
 
 export {
   routineTokenExpirationCheck,
-  getWholeToken
+  getWholeToken,
+  getTokenUsername
 }

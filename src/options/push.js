@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import fetch from "node-fetch"
 import chalk from "chalk"
 import FormData from "form-data"

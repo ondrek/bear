@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import inquirer from "inquirer"
+// import inquirer from "inquirer"
 import chalk from "chalk"
 import "@babel/polyfill"
 
@@ -10,17 +10,16 @@ import { constructInit } from "./options/init.js"
 import { constructLogout } from "./options/logout.js"
 
 import { args } from "./utils/args.js"
-import log from "./utils/log.js"
-import { pipeline } from "./utils/tasks.js"
-import { debug } from "./utils/debug.js"
-import { unicorn } from "./unicorn/index.js"
-
+// import log from "./utils/log.js"
+// import { pipeline } from "./utils/tasks.js"
+// import { debug } from "./utils/debug.js"
+// import { unicorn } from "./unicorn/index.js"
 
 async function parseOptions() {
   // await debug("")
   await printHelpSection()
 
-  const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
+  // const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
   if (args.push) {
     await optionPush()
@@ -33,7 +32,7 @@ async function parseOptions() {
   await kill()
 }
 
-(async() => await parseOptions())()
+(async () => await parseOptions())()
 
 async function kill() {
   process.exit(1)

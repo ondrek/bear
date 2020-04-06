@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import fs from "fs"
 import stream from "stream"
 import path from "path"

@@ -3,7 +3,7 @@ import chalk from "chalk"
 
 const transform = (arr, options = {}) => {
   arr = arr.map(item => {
-    if (Array.isArray(item.task)) return { ...item, task: () => transform(item.task)  }
+    if (Array.isArray(item.task)) return { ...item, task: () => transform(item.task) }
     return item
   })
 

@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getWholeToken = getWholeToken;
+exports.getTokenUsername = getTokenUsername;
 exports.routineTokenExpirationCheck = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
