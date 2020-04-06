@@ -10,6 +10,8 @@
     "document": false,
     "fetch": false,
     "navigator": false,
+    "test": false,
+    "expect": false,
     "JSON": false,
     "window": false,
     "FormData": false,
