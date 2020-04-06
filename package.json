@@ -14,12 +14,11 @@
     "node": ">=6"
   },
   "scripts": {
-    "______xx": "babel bear.js -w src/utils -w options -w templates --out-file compiled.js --presets=@babel/preset-env --verbose",
+    "test": "DEBUG=eslint:cli-engine ./node_modules/.bin/eslint ./client ./server",
     "watchxxxwatchxxx": "nodemon --exec babel-node src/bear.js",
     "prepublish": "babel src --out-dir dist",
     "watch": "babel src --watch --out-dir dist --verbose",
     "serve": "node dist/bear.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "upload": "npm version patch && npm publish"
   },
   "bin": {
