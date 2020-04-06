@@ -1,9 +1,10 @@
 import { log } from "../utils/index.js"
+import chalk from "chalk"
 
 async function printHelpSection() {
   console.info(`
-  ${log.dim("Try")} bearicorn ${log.dim("with one command from the bellow:")}
-
+  ${chalk.dim.bold("Try bearicorn with one command from the bellow:")}
+  ${chalk.dim.bold("|")}
   init        ${log.dim("Link your Cli to your cloud online account", false)}
   push        ${log.dim("Push an image or a repository to a registry", false)}
   pull        ${log.dim("Unlinks this cli from your online cloud account", false)}
@@ -14,8 +15,6 @@ async function printHelpSection() {
   logout      ${log.dim("Unlinks this cli from your online cloud account", false)}
   version     ${log.dim("Show the Docker version information", false)}
   hello       ${log.dim("Creates example of app in multiple languages", false)}
-
-  ${log.dim("Debug info")}
   `)
 }
 

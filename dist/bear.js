@@ -7,7 +7,7 @@ var _chalk = _interopRequireDefault(require("chalk"));
 
 require("@babel/polyfill");
 
-var _push = require("./options/push.js");
+var _push = _interopRequireDefault(require("./options/push.js"));
 
 var _help = require("./options/help.js");
 
@@ -70,56 +70,44 @@ function _parseOptions() {
             }();
 
             if (!_args5.args.push) {
-              _context3.next = 14;
+              _context3.next = 8;
               break;
             }
 
             _context3.next = 6;
-            return ensuresHomeFolderExist();
+            return (0, _push["default"])();
 
           case 6:
-            _context3.next = 8;
-            return ensuresUserIsAuthenticated();
+            _context3.next = 16;
+            break;
 
           case 8:
-            _context3.next = 10;
-            return ensuresProjectConfigExists();
-
-          case 10:
-            _context3.next = 12;
-            return (0, _push.constructPush)();
-
-          case 12:
-            _context3.next = 22;
-            break;
-
-          case 14:
             if (!_args5.args.init) {
-              _context3.next = 19;
+              _context3.next = 13;
               break;
             }
 
-            _context3.next = 17;
+            _context3.next = 11;
             return (0, _init.constructInit)();
 
-          case 17:
-            _context3.next = 22;
+          case 11:
+            _context3.next = 16;
             break;
 
-          case 19:
+          case 13:
             if (!_args5.args.logout) {
-              _context3.next = 22;
+              _context3.next = 16;
               break;
             }
 
-            _context3.next = 22;
+            _context3.next = 16;
             return (0, _logout.constructLogout)();
 
-          case 22:
-            _context3.next = 24;
+          case 16:
+            _context3.next = 18;
             return kill();
 
-          case 24:
+          case 18:
           case "end":
             return _context3.stop();
         }
@@ -174,7 +162,8 @@ process.on("uncaughtException", handleError);
 process.on("unhandledRejection", handleError);
 
 function handleError(error) {
-  console.error(_chalk["default"].bgRed("\n\n  > Unhandled error, this is a real problem and should have never happen"));
+  console.error(_chalk["default"].bgRed("\nUnhandled error, this should have never happend"));
+  console.error(error);
   process.exit(1);
 }
 

@@ -11,7 +11,13 @@ Object.defineProperty(exports, "fetch", {
     return _fetch["default"];
   }
 });
-exports.log = exports.manifest = exports.fs = exports.token = exports.uuid = exports.home = void 0;
+Object.defineProperty(exports, "uuid", {
+  enumerable: true,
+  get: function get() {
+    return _uuid["default"];
+  }
+});
+exports.log = exports.manifest = exports.fs = exports.token = exports.home = void 0;
 
 var home = _interopRequireWildcard(require("./_home.js"));
 
@@ -19,9 +25,7 @@ exports.home = home;
 
 var _fetch = _interopRequireDefault(require("./_fetch.js"));
 
-var uuid = _interopRequireWildcard(require("./_uuid.js"));
-
-exports.uuid = uuid;
+var _uuid = _interopRequireDefault(require("./uuid.js"));
 
 var token = _interopRequireWildcard(require("./_token.js"));
 

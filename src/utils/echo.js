@@ -1,12 +1,16 @@
 import ora from "ora"
 
-function echo() {
+function echo(text) {
   const obj = {}
   const instance = ora({
-    text: "",
+    text,
     prefixText: " ",
     color: "gray"
   })
+
+  if (text) {
+    instance.start()
+  }
 
   obj.start = (message) => {
     instance.start(message)

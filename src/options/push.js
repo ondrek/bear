@@ -1,24 +1,36 @@
-import { log, home, uuid, fs, token, manifest } from "../utils/index.js"
 import fetch from "node-fetch"
-import tar from "tar"
+import chalk from "chalk"
 import FormData from "form-data"
+import { log, home, uuid, token, manifest, fs } from "../utils/index.js"
+import { echo } from "../utils/echo"
 
-async function constructPush() {
-  console.info(log.green("Creating image from the current source code.."))
-  const id = uuid()
+async function listAllFiles(dir) {
+  console.info(chalk.dim.bold("  Creating package from the current folder\n  |"))
 
-  const startTime = +new Date()
-  const tarFilePath = home.getHomeFolder() + "/" + id + ".tar"
-  const stream = await tar.c({ cwd: process.cwd() }, [""])
-
-  await stream.pipe(fs.createWriteStream(tarFilePath)).on("close", async () => {
-    const diff = (+new Date() - startTime) / 1000
-    console.info(`It took ${diff}s to build a package with id ${id}`)
-    await uploadToS3(tarFilePath, id)
+  const files = await fs.walk(dir)
+  files.forEach(file => {
+    console.info(`  ${chalk.dim("file")} ${chalk.green(file)}`)
   })
+
+  console.info("")
+}
+
+async function createImageAndUploadToS3() {
+  const print = echo("Creating image from the current source code..")
+  const startTime = +new Date()
+
+  const id = uuid()
+  const tarFilePath = home.getHomeFolder() + "/" + id + ".tar"
+
+  console.info(id)
+  console.info(process.cwd())
+  // tar.c({ cwd: process.cwd() }, [""]).then(_ => console.info("done"))
+
+  await fs.createTarFile(process.cwd(), tarFilePath)
 }
 
 async function uploadToS3(tarName, id) {
+  return
   const stream = fs.createReadStream(tarName)
   const formData = new FormData()
   formData.append("blob", stream, tarName)
@@ -48,4 +60,7 @@ async function uploadToS3(tarName, id) {
   process.exit(0)
 }
 
-export { constructPush }
+export default async function () {
+  await listAllFiles(".")
+  await createImageAndUploadToS3()
+}

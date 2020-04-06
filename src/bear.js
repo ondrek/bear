@@ -4,7 +4,7 @@ import inquirer from "inquirer"
 import chalk from "chalk"
 import "@babel/polyfill"
 
-import { constructPush } from "./options/push.js"
+import optionPush from "./options/push.js"
 import { printHelpSection } from "./options/help.js"
 import { constructInit } from "./options/init.js"
 import { constructLogout } from "./options/logout.js"
@@ -23,10 +23,7 @@ async function parseOptions() {
   const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
   if (args.push) {
-    await ensuresHomeFolderExist()
-    await ensuresUserIsAuthenticated()
-    await ensuresProjectConfigExists()
-    await constructPush()
+    await optionPush()
   } else if (args.init) {
     await constructInit()
   } else if (args.logout) {
@@ -46,7 +43,8 @@ process.on("uncaughtException", handleError)
 process.on("unhandledRejection", handleError)
 
 function handleError(error) {
-  console.error(chalk.bgRed("\n\n  > Unhandled error, this is a real problem and should have never happen"))
+  console.error(chalk.bgRed("\nUnhandled error, this should have never happend"))
+  console.error(error)
   process.exit(1)
 }
 
