@@ -1,6 +1,6 @@
 {
   "name": "bear",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "description": "Deploy any language from your command line",
   "main": "dist/bear.js",
   "preferGlobal": true,
