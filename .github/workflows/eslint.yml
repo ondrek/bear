@@ -1,4 +1,4 @@
-name: Lint
+name: Check Eslint Syntax
 
 on: [push]
 
