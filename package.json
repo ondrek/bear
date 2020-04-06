@@ -14,7 +14,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "test": "DEBUG=eslint:cli-engine ./node_modules/.bin/eslint ./client ./server",
+    "test": "DEBUG=eslint:cli-engine ./node_modules/.bin/eslint ./src",
     "watchxxxwatchxxx": "nodemon --exec babel-node src/bear.js",
     "prepublish": "babel src --out-dir dist",
     "watch": "babel src --watch --out-dir dist --verbose",
@@ -65,6 +65,9 @@
     "@babel/polyfill": "7.8.7",
     "@babel/preset-env": "7.9.0",
     "@babel/runtime": "7.9.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "lodash": "^4.17.15"
   }
 }
