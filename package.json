@@ -1,59 +1,53 @@
 {
-  "name": "bearicorn",
+  "name": "bear",
   "version": "2.0.16",
-  "description": "Cli for Bearicorn",
+  "description": "Deploy any language from your command line",
   "main": "dist/bear.js",
   "preferGlobal": true,
   "license": "Apache-2.0",
-  "homepage": "https://github.com/ondrek/bear-cli",
+  "homepage": "https://github.com/ondrek/bear",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ondrek/bear-cli"
+    "url": "https://github.com/ondrek/bear"
   },
   "engines": {
     "node": ">=6"
   },
   "scripts": {
     "test": "DEBUG=eslint:cli-engine ./node_modules/.bin/eslint ./src",
-    "watchxxxwatchxxx": "nodemon --exec babel-node src/bear.js",
     "prepublish": "babel src --out-dir dist",
     "watch": "babel src --watch --out-dir dist --verbose",
     "serve": "node dist/bear.js",
     "upload": "npm version patch && npm publish"
   },
   "bin": {
-    "bearicorn": "dist/bear.js"
+    "bear": "dist/bear.js"
   },
   "keywords": [
     "hosting",
     "docker",
     "aws",
     "gc",
-    "elasticbeanstalk",
     "deploy",
     "cli",
     "cheap",
     "easy",
     "platform",
-    "unicorn",
-    "bearicorn"
+    "unicorn"
   ],
   "dependencies": {
-    "archiver": "^3.1.1",
+    "archiver": "3.1.1",
     "arg": "4.1.3",
     "chalk": "3.0.0",
-    "cli-cursor": "^3.1.0",
+    "cli-cursor": "3.1.0",
     "form-data": "3.0.0",
     "inquirer": "7.1.0",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
-    "listr": "0.14.3",
-    "listr-input": "^0.2.1",
-    "log-symbols": "^3.0.0",
+    "log-symbols": "3.0.0",
     "node-fetch": "2.6.0",
-    "ora": "^4.0.3",
-    "promptly": "^3.0.3",
-    "prompts": "2.3.2",
+    "ora": "4.0.3",
+    "promptly": "3.0.3",
     "tar": "6.0.1",
     "tar-fs": "^2.0.1",
     "uuid": "7.0.2"
@@ -67,7 +61,6 @@
     "@babel/runtime": "7.9.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0",
-    "lodash": "^4.17.15"
+    "eslint-plugin-react": "^7.19.0"
   }
 }
