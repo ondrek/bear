@@ -1,12 +1,21 @@
-name: test-dependencies
+name: npm-audit
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  test_released_job:
+  scan:
+    name: npm audit
     runs-on: ubuntu-latest
-    name: A job to test the latest released ncu-action
     steps:
-      - name: Test the released step
-        id: test_released
-        uses: fzwael/ncu-action@v1
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: npm ci
+      - uses: oke-py/npm-audit-action@v1.2.0
+        with:
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: oke-py
+          issue_labels: vulnerability,test
