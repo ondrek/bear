@@ -1,4 +1,4 @@
-name: Check Eslint Syntax
+name: check-eslint-syntax
 
 on: [push]
 
