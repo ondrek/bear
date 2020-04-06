@@ -1,24 +1,16 @@
 # Package in progress
 
+## Status
 
-[![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![David deps][david-image]][david-url]
-[![Known Vulnerabilities][snyk-image]][snyk-url]
-[![npm download][download-image]][download-url]
+[![Website is online][web-up]][web-up]
+[![Downloads in year][downloads-year]][downloads-year]
+[![Last commit][last-commit]][last-commit]
+[![Version of NPM][npm-version]][npm-version]
 
-[npm-image]: https://img.shields.io/npm/v/bear.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/bear
-[travis-image]: https://img.shields.io/travis/node-modules/compressing.svg?style=flat-square
-[travis-url]: https://travis-ci.org/node-modules/compressing
-[codecov-image]: https://codecov.io/gh/node-modules/compressing/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/node-modules/compressing
-[david-image]: https://img.shields.io/david/node-modules/compressing.svg?style=flat-square
-[david-url]: https://david-dm.org/node-modules/compressing
-[snyk-image]: https://snyk.io/test/npm/compressing/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/compressing
-[download-image]: https://img.shields.io/npm/dm/compressing.svg?style=flat-square
-[download-url]: https://npmjs.org/package/compressing
+[web-up]: https://img.shields.io/website?color=green&url=http%3A%2F%2Fbearicorn.com
+[downloads-year]: https://img.shields.io/npm/dy/bear?color=green
+[npm-version]: https://img.shields.io/npm/v/bear?color=green
+[last-commit]: https://img.shields.io/github/last-commit/ondrek/bear?color=green
 
 ## Scheduled releases
 
