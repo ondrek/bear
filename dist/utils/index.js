@@ -17,7 +17,7 @@ Object.defineProperty(exports, "uuid", {
     return _uuid["default"];
   }
 });
-exports.log = exports.manifest = exports.fs = exports.token = exports.home = void 0;
+exports.ask = exports.echo = exports.log = exports.manifest = exports.fs = exports.token = exports.home = void 0;
 
 var home = _interopRequireWildcard(require("./_home.js"));
 
@@ -42,6 +42,14 @@ exports.manifest = manifest;
 var log = _interopRequireWildcard(require("./_log.js"));
 
 exports.log = log;
+
+var echo = _interopRequireWildcard(require("./echo.js"));
+
+exports.echo = echo;
+
+var ask = _interopRequireWildcard(require("./ask.js"));
+
+exports.ask = ask;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

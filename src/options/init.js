@@ -10,7 +10,7 @@ const pickAnApp = async (choices) => {
   console.info("\n  Pick an app:")
   choices.forEach(choice => console.info("  > ", chalk.green(choice)))
 
-  const name = await ask("\n  Select an app: ", choices)
+  const name = await ask("\n  Select an app: ")
 
   if (choices.indexOf(name) === -1) await pickAnApp(choices)
 }

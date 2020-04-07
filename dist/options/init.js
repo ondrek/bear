@@ -56,7 +56,7 @@ var pickAnApp = /*#__PURE__*/function () {
               return console.info("  > ", _chalk["default"].green(choice));
             });
             _context2.next = 4;
-            return (0, _ask.ask)("\n  Select an app: ", choices);
+            return (0, _ask.ask)("\n  Select an app: ");
 
           case 4:
             name = _context2.sent;

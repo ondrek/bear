@@ -6,6 +6,9 @@ import path from "path"
 import util from "util"
 import tar from "tar-fs"
 import zlib from "zlib"
+import { home, uuid } from "./index.js"
+import archiver from "archiver"
+import { echo } from "./echo"
 
 const fsPromises = fs.promises
 
@@ -91,36 +94,61 @@ const walk = async (dir) => {
   return files.reduce((all, folderContents) => all.concat(folderContents), [])
 }
 
-const createTarFile = (cwd, tarFilePath) => {
+const createTarFile = async (files) => {
   return new Promise(async (resolve, reject) => {
+    const print = echo()
+    print.start(`Creating archive with ${files.length} files..`)
 
-    // const pipeline = util.promisify(stream.pipeline)
-    // const pipe = promisify(pipeline);
+    const id = uuid()
+    const tarFilePath = home.getHomeFolder() + "/" + id + ".zip"
+    const currentFolder = process.cwd()
+    const output = fs.createWriteStream(tarFilePath)
 
-    await testingTutorial([".gitignore", "package.json", "package-lock.json"])
-    return
+    const archive = archiver("zip", {
+      zlib: { level: 9 } // Sets the compression level.
+    })
 
+    // listen for all archive data to be written
+    // 'close' event is fired only when a file descriptor is involved
+    output.on('close', function() {
+      print.succeed(`Creating archive with ${files.length} files.. and ${archive.pointer()} total bytes`)
+      return resolve({ id, tarFilePath })
+    })
 
-    const pipe = util.promisify(stream.pipeline);
+    // This event is fired when the data source is drained no matter what was the data source.
+    // It is not part of this library but rather from the NodeJS Stream API.
+    // @see: https://nodejs.org/api/stream.html#stream_event_end
+    output.on('end', function() {
+      console.log('Data has been drained');
+      resolve()
+    })
 
-    // let files = await walk(".")
-    // files = files.map(file => "./" + file)
-    // console.info(files)
-    //
-    // console.info("cwd", cwd)
-    // console.info("tarFilePath", tarFilePath)
+    // good practice to catch warnings (ie stat failures and other non-blocking errors)
+    archive.on('warning', function(err) {
+      if (err.code === 'ENOENT') {
+        // log warning
+      } else {
+        // throw error
+        throw err;
+      }
+    })
 
-    async function do_gzip(input, output) {
-      const gzip = createGzip()
-      const source = fs.createReadStream(input)
-      const destination = fs.createWriteStream(output)
-      await pipe(source, gzip, destination)
+    // good practice to catch this error explicitly
+    archive.on('error', function(err) {
+      throw err;
+    });
+
+    // pipe archive data to the file
+    archive.pipe(output)
+
+    for (let file of files) {
+      file = file.replace(currentFolder + "/", "")
+      archive.append(file, { name: file })
     }
 
-    do_gzip("package.json", 'input.txt.gz').catch((err) => {
-      console.error('An error occurred:', err)
-      process.exitCode = 1
-    })
+    // finalize the archive (ie we are done appending files but streams have to finish yet)
+    // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
+    archive.finalize()
   })
 }
 

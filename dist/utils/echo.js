@@ -9,17 +9,13 @@ var _ora = _interopRequireDefault(require("ora"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function echo(text) {
+function echo() {
   var obj = {};
   var instance = (0, _ora["default"])({
-    text: text,
+    text: "",
     prefixText: " ",
     color: "gray"
   });
-
-  if (text) {
-    instance.start();
-  }
 
   obj.start = function (message) {
     instance.start(message);

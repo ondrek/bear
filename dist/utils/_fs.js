@@ -17,7 +17,19 @@ var _tarFs = _interopRequireDefault(require("tar-fs"));
 
 var _zlib = _interopRequireDefault(require("zlib"));
 
+var _index = require("./index.js");
+
+var _archiver = _interopRequireDefault(require("archiver"));
+
+var _echo = require("./echo");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -212,61 +224,107 @@ var walk = /*#__PURE__*/function () {
 
 exports.walk = walk;
 
-var createTarFile = function createTarFile(cwd, tarFilePath) {
-  return new Promise( /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(resolve, reject) {
-      var pipe, do_gzip, _do_gzip;
+var createTarFile = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(files) {
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            return _context5.abrupt("return", new Promise( /*#__PURE__*/function () {
+              var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(resolve, reject) {
+                var print, id, tarFilePath, currentFolder, output, archive, _iterator, _step, file;
 
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              _do_gzip = function _do_gzip3() {
-                _do_gzip = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(input, output) {
-                  var gzip, source, destination;
-                  return regeneratorRuntime.wrap(function _callee4$(_context4) {
-                    while (1) {
-                      switch (_context4.prev = _context4.next) {
-                        case 0:
-                          gzip = createGzip();
-                          source = _fs["default"].createReadStream(input);
-                          destination = _fs["default"].createWriteStream(output);
-                          _context4.next = 5;
-                          return pipe(source, gzip, destination);
+                return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                  while (1) {
+                    switch (_context4.prev = _context4.next) {
+                      case 0:
+                        print = (0, _echo.echo)();
+                        print.start("Creating archive with ".concat(files.length, " files.."));
+                        id = (0, _index.uuid)();
+                        tarFilePath = _index.home.getHomeFolder() + "/" + id + ".zip";
+                        currentFolder = process.cwd();
+                        output = _fs["default"].createWriteStream(tarFilePath);
+                        archive = (0, _archiver["default"])("zip", {
+                          zlib: {
+                            level: 9
+                          } // Sets the compression level.
 
-                        case 5:
-                        case "end":
-                          return _context4.stop();
-                      }
+                        }); // listen for all archive data to be written
+                        // 'close' event is fired only when a file descriptor is involved
+
+                        output.on('close', function () {
+                          print.succeed("Creating archive with ".concat(files.length, " files.. and ").concat(archive.pointer(), " total bytes"));
+                          return resolve({
+                            id: id,
+                            tarFilePath: tarFilePath
+                          });
+                        }); // This event is fired when the data source is drained no matter what was the data source.
+                        // It is not part of this library but rather from the NodeJS Stream API.
+                        // @see: https://nodejs.org/api/stream.html#stream_event_end
+
+                        output.on('end', function () {
+                          console.log('Data has been drained');
+                          resolve();
+                        }); // good practice to catch warnings (ie stat failures and other non-blocking errors)
+
+                        archive.on('warning', function (err) {
+                          if (err.code === 'ENOENT') {// log warning
+                          } else {
+                            // throw error
+                            throw err;
+                          }
+                        }); // good practice to catch this error explicitly
+
+                        archive.on('error', function (err) {
+                          throw err;
+                        }); // pipe archive data to the file
+
+                        archive.pipe(output);
+                        _iterator = _createForOfIteratorHelper(files);
+
+                        try {
+                          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                            file = _step.value;
+                            file = file.replace(currentFolder + "/", "");
+                            archive.append(file, {
+                              name: file
+                            });
+                          } // finalize the archive (ie we are done appending files but streams have to finish yet)
+                          // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
+
+                        } catch (err) {
+                          _iterator.e(err);
+                        } finally {
+                          _iterator.f();
+                        }
+
+                        archive.finalize();
+
+                      case 15:
+                      case "end":
+                        return _context4.stop();
                     }
-                  }, _callee4);
-                }));
-                return _do_gzip.apply(this, arguments);
+                  }
+                }, _callee4);
+              }));
+
+              return function (_x5, _x6) {
+                return _ref5.apply(this, arguments);
               };
+            }()));
 
-              do_gzip = function _do_gzip2(_x6, _x7) {
-                return _do_gzip.apply(this, arguments);
-              };
-
-              _context5.next = 4;
-              return testingTutorial([".gitignore", "package.json", "package-lock.json"]);
-
-            case 4:
-              return _context5.abrupt("return");
-
-            case 7:
-            case "end":
-              return _context5.stop();
-          }
+          case 1:
+          case "end":
+            return _context5.stop();
         }
-      }, _callee5);
-    }));
+      }
+    }, _callee5);
+  }));
 
-    return function (_x4, _x5) {
-      return _ref4.apply(this, arguments);
-    };
-  }());
-}; // const createTarFile = async (cwd, tarFilePath) => {
+  return function createTarFile(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}(); // const createTarFile = async (cwd, tarFilePath) => {
 //   const pipeline = util.promisify(stream.pipeline)
 //
 //   let files = await walk(".")

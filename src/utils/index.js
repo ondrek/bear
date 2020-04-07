@@ -5,6 +5,8 @@ import * as token from "./_token.js"
 import * as fs from "./_fs.js"
 import * as manifest from "./_manifest.js"
 import * as log from "./_log.js"
+import * as echo from "./echo.js"
+import * as ask from "./ask.js"
 
 export {
   home,
@@ -13,5 +15,7 @@ export {
   token,
   fs,
   manifest,
-  log
+  log,
+  ask,
+  echo
 }

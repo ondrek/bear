@@ -3,8 +3,12 @@
 import fetch from "node-fetch"
 import chalk from "chalk"
 import FormData from "form-data"
-import { log, home, uuid, token, manifest, fs } from "../utils/index.js"
-import { echo } from "../utils/echo"
+import { uuid, token, manifest, fs, home } from "../utils/index.js"
+import { ask } from "../utils/ask.js"
+import * as fsNative from "fs"
+import {echo} from "../utils/echo";
+
+const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 async function listAllFiles(dir) {
   console.info(chalk.dim.bold("  Creating package from the current folder\n  |"))
@@ -17,31 +21,32 @@ async function listAllFiles(dir) {
   console.info("")
 }
 
-async function createImageAndUploadToS3() {
-  const print = echo("Creating image from the current source code..")
-  const startTime = +new Date()
-
-  const id = uuid()
-  const tarFilePath = home.getHomeFolder() + "/" + id + ".tar"
-
-  console.info(id)
-  console.info(process.cwd())
-  // tar.c({ cwd: process.cwd() }, [""]).then(_ => console.info("done"))
-
-  await fs.createTarFile(process.cwd(), tarFilePath)
+async function askIfAgreesUploadFiles() {
+  const answer = await ask("  Do you want to upload those files?  Y/n: ")
+  if (answer === "Y" || answer === "n") return answer === "Y"
+  await askIfAgreesUploadFiles()
 }
 
-async function uploadToS3(tarName, id) {
-  return
-  const stream = fs.createReadStream(tarName)
+async function createImageAndUploadToS3() {
+  if (!await askIfAgreesUploadFiles()) return
+  console.info("  |")
+
+  const currentFolder = process.cwd()
+  const files = await fs.walk(currentFolder)
+
+  const { id, tarFilePath } = await fs.createTarFile(files)
+  await uploadToS3(id, tarFilePath)
+}
+
+async function uploadToS3(id, tarFilePath) {
+  const print = echo()
+  print.start(`Uploading tar file to the cloud under ID ${id}`)
+
+  const stream = fsNative.createReadStream(tarFilePath)
   const formData = new FormData()
-  formData.append("blob", stream, tarName)
+  formData.append("blob", stream, tarFilePath)
 
-  const startTime = +new Date()
-  console.info(log.green(`${id} Uploading...`))
-
-  const app = await manifest.app()
-  const response = await fetch(`http://localhost:3001/api/image/upload/${app}`, {
+  const response = await fetch(`http://localhost:3001/api/image/${id}`, {
     method: "POST",
     body: formData,
     headers: { token: await token.getWholeToken() }
@@ -53,13 +58,15 @@ async function uploadToS3(tarName, id) {
     return console.error("Missing JWT token while during the request")
   } else if (data.expiredJwt) {
     return console.error("Sent JWT token was broken or expired")
+  } else if (data.uploaded) {
+    print.succeed()
+    const deleted = echo()
+    deleted.start("Removing temp file")
+    await fs.unlinkFile(tarFilePath)
+    deleted.succeed("Temp file was successfully removed")
+  } else {
+    throw new Error("This should have never happend")
   }
-
-  await fs.unlinkFile(tarName)
-
-  const diff = (+new Date() - startTime) / 1000
-  console.info(log.green(`${id} Upload done successfully and it took ${diff}s`))
-  process.exit(0)
 }
 
 export default async function () {
