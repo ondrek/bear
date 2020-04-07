@@ -1,14 +1,10 @@
-/* eslint-disable */
-
 import fetch from "node-fetch"
 import chalk from "chalk"
 import FormData from "form-data"
-import { uuid, token, manifest, fs, home } from "../utils/index.js"
+import { token, fs } from "../utils/index.js"
 import { ask } from "../utils/ask.js"
 import * as fsNative from "fs"
-import {echo} from "../utils/echo";
-
-const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
+import { echo } from "../utils/echo"
 
 async function listAllFiles(dir) {
   console.info(chalk.dim.bold("  Creating package from the current folder\n  |"))
