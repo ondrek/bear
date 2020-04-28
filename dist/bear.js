@@ -8,6 +8,8 @@ require("@babel/polyfill");
 
 var _push = _interopRequireDefault(require("./options/push.js"));
 
+var _images = _interopRequireDefault(require("./options/images.js"));
+
 var _help = require("./options/help.js");
 
 var _init = require("./options/init.js");
@@ -49,36 +51,49 @@ function _parseOptions() {
             return (0, _push["default"])();
 
           case 5:
-            _context2.next = 15;
+            _context2.next = 20;
             break;
 
           case 7:
-            if (!_args4.args.init) {
+            if (!_args4.args.images) {
               _context2.next = 12;
               break;
             }
 
             _context2.next = 10;
-            return (0, _init.constructInit)();
+            return (0, _images["default"])();
 
           case 10:
-            _context2.next = 15;
+            _context2.next = 20;
             break;
 
           case 12:
-            if (!_args4.args.logout) {
-              _context2.next = 15;
+            if (!_args4.args.init) {
+              _context2.next = 17;
               break;
             }
 
             _context2.next = 15;
-            return (0, _logout.constructLogout)();
+            return (0, _init.constructInit)();
 
           case 15:
-            _context2.next = 17;
-            return kill();
+            _context2.next = 20;
+            break;
 
           case 17:
+            if (!_args4.args.logout) {
+              _context2.next = 20;
+              break;
+            }
+
+            _context2.next = 20;
+            return (0, _logout.constructLogout)();
+
+          case 20:
+            _context2.next = 22;
+            return kill();
+
+          case 22:
           case "end":
             return _context2.stop();
         }

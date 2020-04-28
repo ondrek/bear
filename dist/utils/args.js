@@ -18,6 +18,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     logout: args._[0] === "logout",
     help: args._[0] === "help",
     push: args._[0] === "push",
+    images: args._[0] === "images",
     init: args._[0] === "init"
   };
 }

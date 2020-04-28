@@ -43,7 +43,7 @@
     "cli-cursor": "3.1.0",
     "form-data": "3.0.0",
     "inquirer": "7.1.0",
-    "js-yaml": "3.13.1",
+    "js-yaml": "^3.13.1",
     "jsonwebtoken": "8.5.1",
     "log-symbols": "3.0.0",
     "node-fetch": "2.6.0",

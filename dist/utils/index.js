@@ -35,7 +35,7 @@ var fs = _interopRequireWildcard(require("./_fs.js"));
 
 exports.fs = fs;
 
-var manifest = _interopRequireWildcard(require("./_manifest.js"));
+var manifest = _interopRequireWildcard(require("./manifest.js"));
 
 exports.manifest = manifest;
 

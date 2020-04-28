@@ -5,6 +5,7 @@ import chalk from "chalk"
 import "@babel/polyfill"
 
 import optionPush from "./options/push.js"
+import optionImages from "./options/images.js"
 import { printHelpSection } from "./options/help.js"
 import { constructInit } from "./options/init.js"
 import { constructLogout } from "./options/logout.js"
@@ -23,6 +24,8 @@ async function parseOptions() {
 
   if (args.push) {
     await optionPush()
+  } else if (args.images) {
+    await optionImages()
   } else if (args.init) {
     await constructInit()
   } else if (args.logout) {
